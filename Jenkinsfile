@@ -1,6 +1,9 @@
+def jarFileName=""
 pipeline {
    agent any    
-
+  environment {
+        ENV_NAME = "${NAME}-${VERSION}"
+    }
   options {
     skipStagesAfterUnstable()
   }
@@ -33,8 +36,19 @@ pipeline {
         steps {
           sh './jenkins/scripts/deliver.sh'
         }
+      script {
+                   ENV_NAME ="${NAME}-${VERSION}.jar"
+            }
       }
     }
+    }
+
+    stage('Validation00')
+    {
+      steps{
+ echo 'Build Number: ' + env.ENV_NAME
+      }
+      
     }
   }
 }
