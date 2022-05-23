@@ -35,8 +35,8 @@ pipeline {
       stage('Deliver') {
         steps {
           sh './jenkins/scripts/deliver.sh'
-            script {
-                   ENV_NAME ="${NAME}-${VERSION}.jar"
+           sh 'printenv'
+       
             }
         }
     
