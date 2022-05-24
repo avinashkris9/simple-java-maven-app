@@ -38,7 +38,7 @@ pipeline {
    
       agent any
         steps {
-          sh 'Echo building docker'
+        
           script {
             def customImage = docker.build(" my-app:1.0")
            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
