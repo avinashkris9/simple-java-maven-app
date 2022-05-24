@@ -1,4 +1,5 @@
-def jarFileName=""
+
+
 pipeline {
    agent any    
   environment {
@@ -36,13 +37,14 @@ pipeline {
     }
     }
    stage('Build Docker') {
+     def customImage
       agent any
         steps {
-            docker.withRegistry('https://hub.docker.com/', DockerHub_Credentials) {
-           def customImage = docker.build(" my-app:1.0")
-            customImage.push()
-          
-       }}
+            customImage = docker.build(" my-app:1.0")
+           docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
+            customImage.push("${env.BUILD_NUMBER}")
+            customImage.push("latest")
+       }
         
     
       }
