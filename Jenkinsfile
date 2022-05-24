@@ -43,7 +43,7 @@ pipeline {
           sh 'Echo building docker'
           script {
             def customImage = docker.build(" my-app:1.0")
-           docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
+           docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
             customImage.push("${env.BUILD_NUMBER}")
             customImage.push("latest")
        }
