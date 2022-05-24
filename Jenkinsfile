@@ -40,11 +40,13 @@ pipeline {
      def customImage
       agent any
         steps {
+          script {
             customImage = docker.build(" my-app:1.0")
            docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
             customImage.push("${env.BUILD_NUMBER}")
             customImage.push("latest")
        }
+        }
         }
     
       }
