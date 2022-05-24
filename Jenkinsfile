@@ -39,7 +39,7 @@ pipeline {
       stage('Build Docker') {
       agent any
         steps {
-          sh 'docker build -t my-app:1.0'
+          sh 'docker build -t my-app:1.0 .'
 
          
         }
