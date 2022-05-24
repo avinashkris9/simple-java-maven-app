@@ -42,7 +42,7 @@ pipeline {
           script {
        
            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-          def customImage = docker.build("my-app")
+          def customImage = docker.build("indestructiblekris9/my-app")
             customImage.push("${env.BUILD_NUMBER}")
             customImage.push("latest")
        }
