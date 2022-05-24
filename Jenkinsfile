@@ -32,24 +32,18 @@ pipeline {
           }
         }
       }
-      stage('Deliver') {
+
+    }
+    }
+
+      stage('Build Docker') {
+      agent any
         steps {
-          sh './jenkins/scripts/deliver.sh'
-           sh 'printenv'
-       
+          sh 'docker build -t my-app:1.0'
+
          
         }
     
       }
-    }
-    }
-
-    stage('Validation00')
-    {
-      steps{
- echo 'Build Number: ' + env.ENV_NAME
-      }
-      
-    }
   }
 }
