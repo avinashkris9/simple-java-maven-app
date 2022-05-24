@@ -2,7 +2,7 @@ def jarFileName=""
 pipeline {
    agent any    
   environment {
-        ENV_NAME = "${NAME}-${VERSION}"
+        DockerHub_Credentials = credentials("dockerhub")
     }
   options {
     skipStagesAfterUnstable()
@@ -35,14 +35,15 @@ pipeline {
 
     }
     }
-
-      stage('Build Docker') {
+   stage('Build Docker') {
       agent any
         steps {
-          sh 'docker build -t my-app:1.0 .'
-
-         
-        }
+            docker.withRegistry('https://hub.docker.com/', DockerHub_Credentials) {
+           def customImage = docker.build(" my-app:1.0")
+            customImage.push()
+          
+       }}
+        
     
       }
   }
