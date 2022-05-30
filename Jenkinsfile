@@ -68,7 +68,9 @@ pipeline {
 
 
   script {
-                     def remote = [name: 'test', host: '13.233.134.62', user: 'ubuntu', identityFile: ${AWS_ACCESS_KEY_ID}, allowAnyHosts: true]
+              sh 'printenv'
+              echo $AWS_ACCESS_KEY_ID
+                     def remote = [name: 'test', host: '13.233.134.62', user: 'ubuntu', identityFile: ${AWS_ACCESS_KEY_ID.identity}, allowAnyHosts: true]
                      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
                  }
       
