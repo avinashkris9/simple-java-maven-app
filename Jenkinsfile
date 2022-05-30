@@ -67,11 +67,12 @@ pipeline {
     remote.name = 'test'
     remote.host = '13.233.134.62'
     remote.user = 'ubuntu'
-    remote.password = $AN_ACCESS_KEY
+    remote.password = ${AN_ACCESS_KEY}
     remote.allowAnyHosts = true
     stage('Remote SSH') {
       
       sshCommand remote: remote, command: "ls -lrt"
+         sshCommand remote: remote, command: "touch iamhere"
       sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
     }
            }
