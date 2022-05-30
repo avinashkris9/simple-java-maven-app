@@ -70,7 +70,7 @@ pipeline {
     remote.user = 'ubuntu'
  remote.identityFile = ${AWS_ACCESS_KEY_ID}
     remote.allowAnyHosts = true
-    stage('Remote SSH') {
+
       
      script {
                   
@@ -84,7 +84,7 @@ pipeline {
                     // Variables for input
 
                     
-              
+      
            }
         }
     
