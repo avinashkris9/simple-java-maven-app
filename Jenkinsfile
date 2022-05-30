@@ -57,7 +57,9 @@ pipeline {
            agent any
 
          environment { 
-                AN_ACCESS_KEY = credentials('aws-pkey-mumbai') 
+
+              AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id-mumbai')
+
          }
         steps {
         
@@ -66,14 +68,17 @@ pipeline {
     remote.name = 'test'
     remote.host = '13.233.134.62'
     remote.user = 'ubuntu'
-    remote.password = ${AN_ACCESS_KEY}
+ remote.identityFile = ${AWS_ACCESS_KEY_ID}
     remote.allowAnyHosts = true
     stage('Remote SSH') {
       
-      sshCommand remote: remote, command: "ls -lrt"
-         sshCommand remote: remote, command: "touch iamhere"
-      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
-   
+     script {
+                  
+               
+                writeFile file: 'abc.sh', text: 'ls'
+            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
+              sshPut remote: remote, from: 'abc.sh', into: '.'
+                   
            }
   
                     // Variables for input
