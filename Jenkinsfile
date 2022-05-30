@@ -60,9 +60,8 @@ pipeline {
                 AN_ACCESS_KEY = credentials('aws-pkey-mumbai') 
          }
         steps {
-           script {
+        
 
-             def aws_ip="13.233.134.62"
              def remote = [:]
     remote.name = 'test'
     remote.host = '13.233.134.62'
@@ -74,7 +73,7 @@ pipeline {
       sshCommand remote: remote, command: "ls -lrt"
          sshCommand remote: remote, command: "touch iamhere"
       sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
-    }
+   
            }
   
                     // Variables for input
