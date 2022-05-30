@@ -50,5 +50,43 @@ pipeline {
         }
     
       }
+
+
+    stage('Deploy to stage') {
+   
+           agent {
+        docker {
+          image 'maven:3.8.1-adoptopenjdk-11'
+          args '-v /root/.m2:/root/.m2'
+        }
+
+         environment { 
+                AN_ACCESS_KEY = credentials('aws-pkey-mumbai') 
+            
+        steps {
+           script {
+
+             def aws_ip="13.233.134.62"
+             def remote = [:]
+    remote.name = 'test'
+    remote.host = '13.233.134.62'
+    remote.user = 'ubuntu'
+    remote.password = $AN_ACCESS_KEY
+    remote.allowAnyHosts = true
+    stage('Remote SSH') {
+      
+      sshCommand remote: remote, command: "ls -lrt"
+      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+    }
+           }
+  
+                    // Variables for input
+
+                    
+              
+           }
+        }
+    
+      }
   }
 }
