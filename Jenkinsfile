@@ -59,27 +59,20 @@ pipeline {
          environment { 
 
               AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id-mumbai')
-
+      
          }
+         
         steps {
         
 
-             def remote = [:]
-    remote.name = 'test'
-    remote.host = '13.233.134.62'
-    remote.user = 'ubuntu'
- remote.identityFile = ${AWS_ACCESS_KEY_ID}
-    remote.allowAnyHosts = true
 
+
+  script {
+                     def remote = [name: 'test', host: '13.233.134.62', user: 'ubuntu', identityFile: ${AWS_ACCESS_KEY_ID}, allowAnyHosts: true]
+                     sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
+                 }
       
-     script {
-                  
-               
-                writeFile file: 'abc.sh', text: 'ls'
-            sshCommand remote: remote, command: 'for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done'
-              sshPut remote: remote, from: 'abc.sh', into: '.'
-                   
-           }
+
   
                     // Variables for input
 
