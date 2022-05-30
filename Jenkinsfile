@@ -62,7 +62,7 @@ pipeline {
 
          environment { 
                 AN_ACCESS_KEY = credentials('aws-pkey-mumbai') 
-            
+         }
         steps {
            script {
 
