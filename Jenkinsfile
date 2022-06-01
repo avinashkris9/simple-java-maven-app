@@ -58,7 +58,7 @@ pipeline {
 
          environment { 
 
-              AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id-mumbai')
+              AWS_ACCESS_KEY_ID     = credentials('devops-kubemaster-ssh')
       
          }
          
@@ -68,9 +68,9 @@ pipeline {
 
 
   script {
-              sh 'printenv'
+             
               echo $AWS_ACCESS_KEY_ID
-                     def remote = [name: 'test', host: '13.233.134.62', user: 'ubuntu', identityFile: ${AWS_ACCESS_KEY_ID.identity}, allowAnyHosts: true]
+                     def remote = [name: 'test', host: '192.168.56.20', user: 'devops', identityFile: ${AWS_ACCESS_KEY_ID.identity}, allowAnyHosts: true]
                      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
                  }
       
