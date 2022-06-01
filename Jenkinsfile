@@ -54,7 +54,6 @@ pipeline {
 
     stage('Deploy to stage') {
    
-    def remote = [name: 'test', host: '192.168.56.20', user: 'devops', identityFile: ${AWS_ACCESS_KEY_ID.identity}, allowAnyHosts: true]
            agent any
 
          environment { 
@@ -66,9 +65,20 @@ pipeline {
         steps {
         
 
-                    
+
+
+  script {
+             
+              echo "${AWS_ACCESS_KEY_ID}"
+                     def remote = [name: 'test', host: '192.168.56.20', user: ${AWS_ACCESS_KEY_ID_USR}, identityFile: ${AWS_ACCESS_KEY_ID_PSW}, allowAnyHosts: true]
                      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
-              
+                 }
+      
+
+  
+                    // Variables for input
+
+                    
       
            }
         }
