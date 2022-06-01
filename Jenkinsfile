@@ -70,8 +70,8 @@ pipeline {
 
 
   script {
-             
-                 echo 'Building Branch: ' 
+                sh 'printenv'
+                 echo 'Building Branch: ' + $AWS_ACCESS_KEY_ID_PSW
                     // def remote = [name: 'test', host: '192.168.56.20', user: ${AWS_ACCESS_KEY_ID_USR}, identityFile: ${AWS_ACCESS_KEY_ID_PSW}, allowAnyHosts: true]
                      //sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
                  }
