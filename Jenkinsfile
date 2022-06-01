@@ -1,6 +1,14 @@
 
 
 pipeline {
+  
+     def remote = [name: 'test', host: '192.168.56.20', user: ${AWS_ACCESS_KEY_ID_USR}, identityFile: ${AWS_ACCESS_KEY_ID_PSW}, allowAnyHosts: true]
+
+    environment { 
+
+              AWS_ACCESS_KEY_ID     = credentials('devops-kubemaster-ssh')
+      
+         }
    agent any    
 
   options {
@@ -56,11 +64,7 @@ pipeline {
    
            agent any
 
-         environment { 
-
-              AWS_ACCESS_KEY_ID     = credentials('devops-kubemaster-ssh')
-      
-         }
+     
          
         steps {
         
@@ -70,7 +74,7 @@ pipeline {
   script {
              
               echo "${AWS_ACCESS_KEY_ID}"
-                     def remote = [name: 'test', host: '192.168.56.20', user: ${AWS_ACCESS_KEY_ID_USR}, identityFile: ${AWS_ACCESS_KEY_ID_PSW}, allowAnyHosts: true]
+                  
                      sshCommand remote: remote, command: "for i in {1..5}; do echo -n \"Loop \$i \"; date ; sleep 1; done"
                  }
       
