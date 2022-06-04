@@ -69,7 +69,7 @@ pipeline {
                   sh 'echo "Service user is $AWS_ACCESS_KEY_ID"'
                 sh 'echo "Service password is $AWS_ACCESS_KEY_ID_USR"'
                 sh 'echo "Service password is $AWS_ACCESS_KEY_ID_PSW"'
-def remote = [name: 'test', host: '192.168.56.20', user: ${AWS_ACCESS_KEY_ID_USR}, identityFile: ${AWS_ACCESS_KEY_ID_PSW}, allowAnyHosts: true]
+def remote = [name: 'test', host: '192.168.56.20', user: $AWS_ACCESS_KEY_ID_USR, identityFile: $AWS_ACCESS_KEY_ID_PSW, allowAnyHosts: true]
 
   // script {
   //               sh 'printenv'
