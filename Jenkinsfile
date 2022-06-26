@@ -52,26 +52,9 @@ pipeline {
         }
     
       }
-   stage('Manual Action') {
-      agent any
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-             
-                parameters {
-                     choice(name: 'Action', choices: ['Approve', 'Reject'], description: 'Pick action')
-                }
-            }
-             steps {
-                echo "Received input ${Action}"
-            }
-            }
+
 
     stage('Deploy to stage') {
-        when {
-               
-                    expression { params.Action == 'Approve' }
-        }
    
            agent any
   environment 
